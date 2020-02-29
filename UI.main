@@ -1,0 +1,46 @@
+<#not in chatBot,main i alredy integrated this Tkinter UI Just for learning Purpose i mention UI code here also>
+
+main = Tk()
+
+main.geometry("500x650")
+main.title("FS ChatBot")
+
+img=PhotoImage(file='imgcb1.png')
+photo=Label(main,image=img)
+photo.pack(pady=5)
+
+
+def ask_from_bot():
+    #print("Clicked!")
+    query=textfield.get()
+    answer=bot.get_response(query)
+    msgs.insert(END,"You: "+query)
+    msgs.insert(END,"ChatBot: "+str(answer))
+    textfield.delete(0,END)
+    msgs.yview(END) #to point on last by default
+
+frame=Frame(main)
+
+sb = Scrollbar(frame)
+msgs=Listbox(frame,width=80,height=20,yscrollcommand=sb.set)
+
+sb.pack(side=RIGHT,fill=Y)
+msgs.pack(side=LEFT,fill=BOTH,pady=10)
+
+frame.pack()
+
+#Text Field
+textfield=Entry(main,font=("Verdana",20))
+textfield.pack(fill=X,pady=10)
+#btn
+btn=Button(main,text="Ask me?",font=("Verdana",20),command=ask_from_bot)
+btn.pack()
+
+#for enetr  button
+def enter_fun(event):
+    btn.invoke()
+
+main.bind('<Return>',enter_fun)
+
+#end of tkinter
+main.mainloop()
