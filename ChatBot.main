@@ -1,0 +1,81 @@
+from chatterbot import ChatBot  #chatbot library
+from chatterbot.trainers import ListTrainer #for train data
+from tkinter import *
+
+
+bot=ChatBot("FS")
+
+convo=[
+
+    'hello',
+    'Hi threre !',
+    'what is your name ?',
+    'My name is FS, i am created by Saad',
+    'How are you ?',
+    'I am doing great these days',
+    'Thank you!',
+    'In which city you lived?',
+    'I lived in Karachi but planes to moved in Lahore soon',
+    'In which language you talked',
+    'I only talked in language of Love but if you train me i can talk in any language',
+    'I am 21 year old'
+]
+
+trainer=ListTrainer(bot)
+
+trainer.train(convo)
+
+#print("Starting ChatBot FS.....")
+#while True:
+ #   query = input()
+   # if query =='exit':
+    #    break
+
+    #answer=bot.get_response("what is your name?")
+    #print('ChatBot: ',answer)
+
+
+main = Tk()
+
+main.geometry("500x650")
+main.title("FS ChatBot")
+
+img=PhotoImage(file='imgcb1.png')
+photo=Label(main,image=img)
+photo.pack(pady=5)
+
+
+def ask_from_bot():
+    #print("Clicked!")
+    query=textfield.get()
+    answer=bot.get_response(query)
+    msgs.insert(END,"You: "+query)
+    msgs.insert(END,"ChatBot: "+str(answer))
+    textfield.delete(0,END)
+    msgs.yview(END) #to point on last by default
+
+frame=Frame(main)
+
+sb = Scrollbar(frame)
+msgs=Listbox(frame,width=80,height=20,yscrollcommand=sb.set)
+
+sb.pack(side=RIGHT,fill=Y)
+msgs.pack(side=LEFT,fill=BOTH,pady=10)
+
+frame.pack()
+
+#Text Field
+textfield=Entry(main,font=("Verdana",20))
+textfield.pack(fill=X,pady=10)
+#btn
+btn=Button(main,text="Ask me?",font=("Verdana",20),command=ask_from_bot)
+btn.pack()
+
+#for enetr  button
+def enter_fun(event):
+    btn.invoke()
+
+main.bind('<Return>',enter_fun)
+
+#end of tkinter
+main.mainloop()
